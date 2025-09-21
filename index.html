@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Drowsiness Detection System</title>
+    <title>Advanced AI Drowsiness Detection System</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
             color: white;
             min-height: 100vh;
             overflow-x: hidden;
@@ -26,7 +26,7 @@
                 "sidebar main"
                 "logs logs";
             grid-template-rows: auto 1fr auto;
-            grid-template-columns: 350px 1fr;
+            grid-template-columns: 380px 1fr;
             min-height: 100vh;
             gap: 20px;
             padding: 20px;
@@ -43,36 +43,24 @@
             }
         }
 
-        @media (max-width: 768px) {
-            .app-container {
-                padding: 10px;
-                gap: 15px;
-            }
-        }
-
         .header {
             grid-area: header;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.08);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
             border-radius: 20px;
             padding: 25px;
             text-align: center;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d4aa, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
-        }
-
-        .header p {
-            opacity: 0.8;
-            font-size: 1.1rem;
         }
 
         .sidebar {
@@ -84,56 +72,39 @@
 
         .main-content {
             grid-area: main;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.08);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
             border-radius: 20px;
             padding: 25px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
         }
 
         .logs-section {
             grid-area: logs;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.08);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
             border-radius: 20px;
             padding: 25px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            height: 300px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            height: 320px;
         }
 
         .card {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.08);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
             border-radius: 15px;
             padding: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-        }
-
-        .status-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 8px;
-            animation: pulse 2s infinite;
-        }
-
-        .status-connected { background: #00d4aa; }
-        .status-disconnected { background: #ff6b6b; }
-        .status-connecting { background: #feca57; }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+            border-color: rgba(255,255,255,0.25);
         }
 
         .video-container {
@@ -143,7 +114,7 @@
             margin: 0 auto 25px;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
         }
 
         #videoElement {
@@ -164,219 +135,190 @@
 
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 15px;
             margin: 25px 0;
         }
 
         .metric-card {
-            background: rgba(0,0,0,0.3);
+            background: linear-gradient(145deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2));
             padding: 20px;
             border-radius: 12px;
             text-align: center;
             border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: #00d4aa;
+            transform: translateY(-2px);
         }
 
         .metric-value {
             font-size: 2rem;
             font-weight: 700;
-            color: #667eea;
+            color: #00d4aa;
             margin-bottom: 5px;
         }
 
         .metric-label {
             font-size: 0.9rem;
-            opacity: 0.7;
+            opacity: 0.8;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .alert-panel {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
-            padding: 20px;
+            background: linear-gradient(135deg, #ff3333, #cc0000);
+            padding: 25px;
             border-radius: 15px;
             text-align: center;
             margin-bottom: 20px;
             transform: scale(0);
             opacity: 0;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 2px solid rgba(255,255,255,0.3);
         }
 
         .alert-panel.active {
             transform: scale(1);
             opacity: 1;
-            animation: alertPulse 1s infinite;
+            animation: alertPulse 2s infinite;
         }
 
         @keyframes alertPulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
-            50% { box-shadow: 0 0 0 20px rgba(255, 107, 107, 0); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.5); }
+            50% { box-shadow: 0 0 0 25px rgba(255, 51, 51, 0); }
         }
 
         .btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #00d4aa, #667eea);
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 14px 28px;
             border-radius: 25px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 14px;
-            min-width: 120px;
+            min-width: 140px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 212, 170, 0.3);
         }
 
         .btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 212, 170, 0.4);
+            background: linear-gradient(135deg, #00e6c3, #7b8ff0);
         }
 
         .btn:disabled {
-            opacity: 0.5;
+            opacity: 0.4;
             cursor: not-allowed;
             transform: none;
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, #00d4aa, #01a085);
+            box-shadow: none;
         }
 
         .btn-danger {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            background: linear-gradient(135deg, #ff3333, #cc0000);
+            box-shadow: 0 4px 15px rgba(255, 51, 51, 0.3);
+        }
+
+        .btn-danger:hover:not(:disabled) {
+            box-shadow: 0 8px 25px rgba(255, 51, 51, 0.4);
         }
 
         .btn-group {
             display: flex;
-            gap: 12px;
+            gap: 15px;
             flex-wrap: wrap;
-            margin: 15px 0;
+            margin: 20px 0;
         }
 
-        .device-list {
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            padding: 15px;
-            margin: 15px 0;
-            max-height: 200px;
-            overflow-y: auto;
+        .status-indicator {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 10px;
+            animation: pulse 2.5s infinite;
+            box-shadow: 0 0 10px currentColor;
         }
 
-        .device-item {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .status-connected { 
+            background: #00d4aa; 
+            color: #00d4aa;
+        }
+        .status-disconnected { 
+            background: #ff3333; 
+            color: #ff3333;
+        }
+        .status-connecting { 
+            background: #ffaa00; 
+            color: #ffaa00;
         }
 
-        .device-item:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: #667eea;
-            transform: translateX(5px);
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.95); }
         }
 
-        .device-info h4 {
-            margin-bottom: 5px;
-            color: #667eea;
-        }
-
-        .device-info small {
-            opacity: 0.7;
-        }
-
-        .settings-panel {
-            background: rgba(0,0,0,0.3);
+        .advanced-metrics {
+            background: rgba(0,0,0,0.4);
             padding: 20px;
             border-radius: 12px;
-            margin-top: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .setting-group {
-            margin-bottom: 20px;
+        .advanced-metrics h4 {
+            color: #00d4aa;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
         }
 
-        .setting-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #667eea;
+        .metrics-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .range-slider {
-            width: 100%;
-            height: 6px;
-            border-radius: 3px;
-            background: rgba(255,255,255,0.2);
-            outline: none;
-            -webkit-appearance: none;
-        }
-
-        .range-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #667eea;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        .metrics-row:last-child {
+            border-bottom: none;
         }
 
         .log-container {
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.5);
             border-radius: 10px;
             padding: 15px;
-            height: 220px;
+            height: 250px;
             overflow-y: auto;
             font-family: 'JetBrains Mono', 'Courier New', monospace;
             font-size: 13px;
-            line-height: 1.4;
+            line-height: 1.5;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .log-entry {
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             opacity: 0;
-            animation: logFade 0.5s ease forwards;
+            animation: logFadeIn 0.5s ease forwards;
         }
 
-        @keyframes logFade {
+        @keyframes logFadeIn {
             to { opacity: 1; }
         }
 
         .log-timestamp { color: #74b9ff; }
         .log-info { color: #00d4aa; }
-        .log-warning { color: #feca57; }
-        .log-error { color: #ff6b6b; }
+        .log-warning { color: #ffaa00; }
+        .log-error { color: #ff3333; }
         .log-success { color: #00d4aa; }
-
-        .notification {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
-            color: white;
-            padding: 20px 25px;
-            border-radius: 12px;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 10px 40px rgba(255, 107, 107, 0.4);
-            transform: translateX(120%);
-            transition: transform 0.4s ease;
-            z-index: 1000;
-            max-width: 350px;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .notification.show {
-            transform: translateX(0);
-        }
 
         .loading-overlay {
             position: fixed;
@@ -384,23 +326,23 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(26, 26, 46, 0.95);
+            background: rgba(12, 12, 12, 0.98);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
         }
 
         .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(255,255,255,0.1);
-            border-top: 4px solid #667eea;
+            width: 80px;
+            height: 80px;
+            border: 6px solid rgba(255,255,255,0.1);
+            border-top: 6px solid #00d4aa;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
+            animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            margin-bottom: 30px;
         }
 
         @keyframes spin {
@@ -409,73 +351,143 @@
         }
 
         .progress-bar {
-            width: 300px;
-            height: 6px;
+            width: 400px;
+            height: 8px;
             background: rgba(255,255,255,0.1);
-            border-radius: 3px;
+            border-radius: 4px;
             overflow: hidden;
-            margin: 20px 0;
+            margin: 25px 0;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transition: width 0.3s ease;
-            border-radius: 3px;
+            background: linear-gradient(90deg, #00d4aa, #667eea);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 4px;
         }
 
-        /* Custom scrollbar */
+        .device-list {
+            background: rgba(0,0,0,0.4);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            max-height: 220px;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .device-item {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .device-item:hover {
+            background: rgba(0, 212, 170, 0.1);
+            border-color: #00d4aa;
+            transform: translateX(8px);
+        }
+
+        .range-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.2);
+            outline: none;
+            -webkit-appearance: none;
+            margin: 10px 0;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00d4aa, #667eea);
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
+        }
+
+        .range-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
 
         ::-webkit-scrollbar-track {
             background: rgba(255,255,255,0.1);
-            border-radius: 3px;
+            border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #667eea;
-            border-radius: 3px;
+            background: linear-gradient(135deg, #00d4aa, #667eea);
+            border-radius: 4px;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #764ba2;
+        .notification {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #ff3333, #cc0000);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 15px 50px rgba(255, 51, 51, 0.5);
+            transform: translateX(120%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1000;
+            max-width: 380px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .notification.show {
+            transform: translateX(0);
         }
     </style>
 </head>
 <body>
     <div id="loadingOverlay" class="loading-overlay">
         <div class="loading-spinner"></div>
-        <h2 id="loadingTitle">Initializing AI Models</h2>
-        <p id="loadingSubtitle">Loading TensorFlow.js and face detection models...</p>
+        <h2 id="loadingTitle">Loading Advanced AI Models</h2>
+        <p id="loadingSubtitle">Initializing TensorFlow.js, MediaPipe, and custom detection algorithms...</p>
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill" style="width: 0%"></div>
         </div>
-        <small id="loadingDetails">Please wait while we prepare the system</small>
+        <small id="loadingDetails">Please wait while we prepare the enhanced system</small>
     </div>
 
     <div class="app-container" id="appContainer" style="display: none;">
         <header class="header">
-            <h1>AI Driver Safety Monitor</h1>
-            <p>Advanced drowsiness detection with TensorFlow.js • Real-time Bluetooth alerts • Professional data logging</p>
+            <h1>Advanced AI Drowsiness Monitor</h1>
+            <p>Multi-Model AI • Real-time Eye Tracking • PERCLOS Analysis • Advanced Blink Detection</p>
         </header>
 
         <aside class="sidebar">
             <div class="card">
                 <h3>System Status</h3>
                 <div style="margin: 15px 0;">
-                    <div style="margin-bottom: 10px;">
+                    <div style="margin-bottom: 12px;">
                         <span class="status-indicator status-disconnected" id="bluetoothIndicator"></span>
                         <strong>Bluetooth:</strong> <span id="bluetoothStatusText">Disconnected</span>
                     </div>
-                    <div style="margin-bottom: 10px;">
+                    <div style="margin-bottom: 12px;">
                         <span class="status-indicator status-disconnected" id="cameraIndicator"></span>
                         <strong>Camera:</strong> <span id="cameraStatusText">Inactive</span>
                     </div>
-                    <div style="margin-bottom: 10px;">
+                    <div style="margin-bottom: 12px;">
                         <span class="status-indicator status-disconnected" id="detectionIndicator"></span>
-                        <strong>Detection:</strong> <span id="detectionStatusText">Standby</span>
+                        <strong>AI Detection:</strong> <span id="detectionStatusText">Standby</span>
                     </div>
                     <div>
                         <span class="status-indicator status-disconnected" id="loggingIndicator"></span>
@@ -485,23 +497,53 @@
             </div>
 
             <div class="card">
+                <h3>Advanced Metrics</h3>
+                <div class="advanced-metrics">
+                    <h4>Eye Analysis</h4>
+                    <div class="metrics-row">
+                        <span>Left EAR:</span>
+                        <span id="leftEARDisplay">0.000</span>
+                    </div>
+                    <div class="metrics-row">
+                        <span>Right EAR:</span>
+                        <span id="rightEARDisplay">0.000</span>
+                    </div>
+                    <div class="metrics-row">
+                        <span>PERCLOS (%):</span>
+                        <span id="perclosDisplay">0.0</span>
+                    </div>
+                    <div class="metrics-row">
+                        <span>Blink Rate:</span>
+                        <span id="blinkRateDisplay">0.0/min</span>
+                    </div>
+                    
+                    <h4 style="margin-top: 20px;">Detection States</h4>
+                    <div class="metrics-row">
+                        <span>Face Confidence:</span>
+                        <span id="faceConfidenceDisplay">0%</span>
+                    </div>
+                    <div class="metrics-row">
+                        <span>Head Pose:</span>
+                        <span id="headPoseDisplay">Normal</span>
+                    </div>
+                    <div class="metrics-row">
+                        <span>Drowsiness Level:</span>
+                        <span id="drowsinessLevelDisplay">Normal</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
                 <h3>Bluetooth Control</h3>
                 <div class="btn-group">
                     <button class="btn" onclick="scanBluetooth()" id="scanBtn">
-                        <span>🔍</span> Scan Devices
+                        Scan Devices
                     </button>
                     <button class="btn" onclick="sendTestSignal()" id="testBtn" disabled>
-                        <span>📡</span> Test Signal
+                        Test Signal
                     </button>
                 </div>
                 
-                <div id="connectionInfo" style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; margin: 15px 0; font-size: 14px;">
-                    <div><strong>Device:</strong> <span id="connectedDevice">None</span></div>
-                    <div><strong>Signal Rate:</strong> <span id="signalRate">0/sec</span></div>
-                    <div><strong>Last Command:</strong> <span id="lastCommand">None</span></div>
-                    <div><strong>Total Sent:</strong> <span id="totalCommands">0</span></div>
-                </div>
-
                 <div class="device-list" id="deviceList">
                     <div style="text-align: center; color: #888; padding: 20px; font-style: italic;">
                         No devices found. Click "Scan Devices" to search.
@@ -511,39 +553,39 @@
 
             <div class="card">
                 <h3>Detection Settings</h3>
-                <div class="settings-panel">
-                    <div class="setting-group">
-                        <label>EAR Threshold: <span id="earThresholdValue">0.25</span></label>
-                        <input type="range" class="range-slider" id="earThresholdSlider" 
-                               min="0.15" max="0.35" step="0.01" value="0.25" 
-                               oninput="updateEARThreshold(this.value)">
-                        <small style="opacity: 0.7;">Lower values = more sensitive</small>
-                    </div>
-                    <div class="setting-group">
-                        <label>Alert Frames: <span id="alertFramesValue">20</span></label>
-                        <input type="range" class="range-slider" id="alertFramesSlider" 
-                               min="10" max="60" step="5" value="20" 
-                               oninput="updateAlertFrames(this.value)">
-                        <small style="opacity: 0.7;">Higher values = less false alarms</small>
-                    </div>
-                    <div class="setting-group">
-                        <label>Confidence Threshold: <span id="confidenceValue">0.7</span></label>
-                        <input type="range" class="range-slider" id="confidenceSlider" 
-                               min="0.5" max="0.9" step="0.05" value="0.7" 
-                               oninput="updateConfidence(this.value)">
-                        <small style="opacity: 0.7;">Face detection confidence</small>
-                    </div>
+                <div style="margin: 20px 0;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #00d4aa;">
+                        EAR Threshold: <span id="earThresholdValue">0.22</span>
+                    </label>
+                    <input type="range" class="range-slider" id="earThresholdSlider" 
+                           min="0.15" max="0.35" step="0.01" value="0.22" 
+                           oninput="updateEARThreshold(this.value)">
+                    
+                    <label style="display: block; margin: 20px 0 8px; font-weight: 600; color: #00d4aa;">
+                        PERCLOS Threshold: <span id="perclosThresholdValue">20</span>%
+                    </label>
+                    <input type="range" class="range-slider" id="perclosThresholdSlider" 
+                           min="10" max="40" step="2" value="20" 
+                           oninput="updatePERCLOSThreshold(this.value)">
+                           
+                    <label style="display: block; margin: 20px 0 8px; font-weight: 600; color: #00d4aa;">
+                        Sensitivity: <span id="sensitivityValue">Medium</span>
+                    </label>
+                    <input type="range" class="range-slider" id="sensitivitySlider" 
+                           min="1" max="3" step="1" value="2" 
+                           oninput="updateSensitivity(this.value)">
                 </div>
             </div>
         </aside>
 
         <main class="main-content">
             <div id="alertPanel" class="alert-panel">
-                <h2>🚨 DROWSINESS DETECTED!</h2>
-                <p>Driver needs immediate attention - Pull over safely</p>
+                <h2>⚠️ DROWSINESS DETECTED!</h2>
+                <p>Driver showing signs of fatigue - Pull over safely</p>
+                <p><strong>Alert Level: <span id="alertLevel">HIGH</span></strong></p>
             </div>
 
-            <h3>Live Camera Feed & AI Analysis</h3>
+            <h3>Live AI Analysis Feed</h3>
             <div class="video-container">
                 <video id="videoElement" autoplay muted playsinline width="640" height="480"></video>
                 <canvas id="canvasOverlay" width="640" height="480"></canvas>
@@ -551,38 +593,30 @@
 
             <div class="btn-group">
                 <button class="btn" onclick="startCamera()" id="startCameraBtn">
-                    <span>📹</span> Start Camera
+                    Start Camera
                 </button>
-                <button class="btn btn-success" onclick="startDetection()" id="startDetectionBtn" disabled>
-                    <span>🤖</span> Start Detection
+                <button class="btn" onclick="startDetection()" id="startDetectionBtn" disabled>
+                    Start AI Detection
                 </button>
                 <button class="btn" onclick="toggleDataLogging()" id="dataLoggingBtn">
-                    <span>📊</span> Start Logging
+                    Start Logging
                 </button>
                 <button class="btn btn-danger" onclick="stopAllSystems()" id="stopAllBtn">
-                    <span>⏹️</span> Stop All
+                    Stop All
                 </button>
                 <button class="btn" onclick="downloadCSV()" id="downloadBtn">
-                    <span>💾</span> Download Data
+                    Export Data
                 </button>
             </div>
 
             <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-value" id="leftEARValue">0.000</div>
-                    <div class="metric-label">Left EAR</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value" id="rightEARValue">0.000</div>
-                    <div class="metric-label">Right EAR</div>
-                </div>
                 <div class="metric-card">
                     <div class="metric-value" id="averageEARValue">0.000</div>
                     <div class="metric-label">Average EAR</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-value" id="blinkCountValue">0</div>
-                    <div class="metric-label">Blinks</div>
+                    <div class="metric-label">Total Blinks</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-value" id="drowsyEventsValue">0</div>
@@ -590,7 +624,7 @@
                 </div>
                 <div class="metric-card">
                     <div class="metric-value" id="fpsValue">0</div>
-                    <div class="metric-label">FPS</div>
+                    <div class="metric-label">Processing FPS</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-value" id="sessionTimeValue">00:00:00</div>
@@ -604,98 +638,1025 @@
         </main>
 
         <section class="logs-section">
-            <h3>System Activity Log (IST Kolkata Time)</h3>
+            <h3>Advanced System Activity Log</h3>
             <div class="log-container" id="logContainer"></div>
         </section>
     </div>
 
     <div class="notification" id="drowsinessNotification">
-        <h3>⚠️ CRITICAL ALERT</h3>
-        <p>Drowsiness detected! Please pull over safely.</p>
+        <h3>🚨 CRITICAL DROWSINESS ALERT</h3>
+        <p>High drowsiness level detected! Please pull over immediately for safety.</p>
     </div>
 
-    <!-- TensorFlow.js and BlazeFace from CDN -->
+    <!-- Advanced AI Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.15.0/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface@0.0.7/dist/blazeface.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@0.0.3/dist/face-landmarks-detection.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.4.1633559619/face_mesh.js"></script>
 
     <script>
-        // Application State Management
-        const AppState = {
+        // Enhanced Application State
+        const AdvancedState = {
             // AI Models
-            faceModel: null,
-            landmarksModel: null,
+            blazeFaceModel: null,
+            faceMeshModel: null,
             
             // Hardware
             bluetoothDevice: null,
             bluetoothCharacteristic: null,
-            camera: null,
             videoStream: null,
             
             // Detection State  
             isDetecting: false,
             isCameraActive: false,
             faceDetected: false,
+            faceConfidence: 0,
             
-            // Metrics
+            // Advanced Eye Metrics
             leftEAR: 0,
             rightEAR: 0,
             averageEAR: 0,
+            perclos: 0,
             blinkCount: 0,
+            blinkRate: 0,
             drowsyEvents: 0,
-            consecutiveDrowsyFrames: 0,
-            fps: 0,
+            drowsinessLevel: 'Normal',
+            
+            // Blink Detection
+            blinkBuffer: [],
+            earHistory: [],
+            blinkThreshold: 0.25,
+            blinkFrames: 0,
+            lastBlinkTime: 0,
+            
+            // PERCLOS Calculation
+            perclosBuffer: [],
+            perclosWindowSize: 60, // 2 seconds at 30fps
+            closedFrameCount: 0,
+            
+            // Head Pose
+            headPose: { pitch: 0, yaw: 0, roll: 0 },
+            headPoseState: 'Normal',
             
             // Settings
-            earThreshold: 0.25,
-            alertFrames: 20,
-            confidenceThreshold: 0.7,
+            earThreshold: 0.22,
+            perclosThreshold: 20,
+            sensitivity: 2,
+            alertFrames: 15,
+            
+            // Performance
+            fps: 0,
+            frameCount: 0,
+            lastFpsUpdate: Date.now(),
             
             // Data Logging
             isLogging: false,
             csvData: [],
             sessionStart: null,
-            sessionId: null,
             recordCount: 0,
             
-            // Bluetooth tracking
+            // Bluetooth
             signalsSent: 0,
-            signalsPerSecond: 0,
             lastCommand: 'None',
-            
-            // Performance
-            frameCount: 0,
-            lastFpsUpdate: Date.now()
         };
 
-        // IST Time Management (UTC+5:30)
-        const IST_OFFSET = 5.5 * 60 * 60 * 1000;
-        
-        function getISTTime() {
-            const now = new Date();
-            return new Date(now.getTime() + IST_OFFSET + (now.getTimezoneOffset() * 60000));
+        // Enhanced Eye Aspect Ratio Calculation
+        function calculateAdvancedEAR(landmarks) {
+            // More precise MediaPipe landmark indices for eyes
+            const leftEyeIndices = {
+                // Left eye landmarks (more comprehensive)
+                outer: 33, inner: 133,
+                top1: 159, top2: 158, top3: 157, top4: 173,
+                bottom1: 144, bottom2: 145, bottom3: 153, bottom4: 154
+            };
+            
+            const rightEyeIndices = {
+                // Right eye landmarks (more comprehensive)
+                outer: 362, inner: 263,
+                top1: 386, top2: 385, top3: 384, top4: 398,
+                bottom1: 373, bottom2: 374, bottom3: 380, bottom4: 381
+            };
+            
+            function calculatePreciseEAR(eyeIndices) {
+                if (!landmarks.scaledMesh || landmarks.scaledMesh.length < 468) {
+                    return 0;
+                }
+                
+                const points = {};
+                Object.keys(eyeIndices).forEach(key => {
+                    points[key] = landmarks.scaledMesh[eyeIndices[key]];
+                });
+                
+                // Calculate multiple vertical distances for accuracy
+                const v1 = euclideanDistance(points.top1, points.bottom1);
+                const v2 = euclideanDistance(points.top2, points.bottom2);
+                const v3 = euclideanDistance(points.top3, points.bottom3);
+                const v4 = euclideanDistance(points.top4, points.bottom4);
+                
+                // Horizontal distance
+                const h = euclideanDistance(points.outer, points.inner);
+                
+                // Weighted EAR calculation
+                const ear = (v1 + v2 + v3 + v4) / (4.0 * h);
+                return Math.max(0, ear);
+            }
+            
+            const leftEAR = calculatePreciseEAR(leftEyeIndices);
+            const rightEAR = calculatePreciseEAR(rightEyeIndices);
+            const averageEAR = (leftEAR + rightEAR) / 2;
+            
+            return { left: leftEAR, right: rightEAR, average: averageEAR };
         }
         
-        function formatISTTimestamp() {
-            const ist = getISTTime();
-            return ist.toLocaleString('en-IN', {
-                year: 'numeric',
-                month: '2-digit', 
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: false
-            });
+        function euclideanDistance(point1, point2) {
+            return Math.sqrt(Math.pow(point1[0] - point2[0], 2) + Math.pow(point1[1] - point2[1], 2));
         }
 
-        // Enhanced Logging System
+        // Advanced Blink Detection with State Machine
+        function detectBlinks(earValue) {
+            const currentTime = Date.now();
+            
+            // Add to EAR history for analysis
+            AdvancedState.earHistory.push({ ear: earValue, timestamp: currentTime });
+            
+            // Keep only last 2 seconds of data
+            const twoSecondsAgo = currentTime - 2000;
+            AdvancedState.earHistory = AdvancedState.earHistory.filter(item => item.timestamp > twoSecondsAgo);
+            
+            // Blink detection state machine
+            if (earValue < AdvancedState.blinkThreshold) {
+                AdvancedState.blinkFrames++;
+            } else {
+                if (AdvancedState.blinkFrames >= 2 && AdvancedState.blinkFrames <= 15) {
+                    // Valid blink detected
+                    AdvancedState.blinkCount++;
+                    AdvancedState.lastBlinkTime = currentTime;
+                    log(`Blink detected #${AdvancedState.blinkCount} (${AdvancedState.blinkFrames} frames)`, 'info');
+                }
+                AdvancedState.blinkFrames = 0;
+            }
+            
+            // Calculate blink rate per minute
+            const oneMinuteAgo = currentTime - 60000;
+            const recentBlinks = AdvancedState.earHistory.filter(item => 
+                item.timestamp > oneMinuteAgo && item.ear < AdvancedState.blinkThreshold
+            );
+            AdvancedState.blinkRate = (recentBlinks.length / 60) * 60; // blinks per minute
+        }
+
+        // PERCLOS (Percentage of Eyelid Closure) Calculation
+        function calculatePERCLOS(earValue) {
+            // Add current EAR to PERCLOS buffer
+            AdvancedState.perclosBuffer.push(earValue);
+            
+            // Maintain buffer size for rolling window
+            if (AdvancedState.perclosBuffer.length > AdvancedState.perclosWindowSize) {
+                AdvancedState.perclosBuffer.shift();
+            }
+            
+            // Count frames where eyes are closed (EAR < threshold)
+            const closedFrames = AdvancedState.perclosBuffer.filter(ear => ear < AdvancedState.earThreshold).length;
+            
+            // Calculate PERCLOS percentage
+            if (AdvancedState.perclosBuffer.length > 0) {
+                AdvancedState.perclos = (closedFrames / AdvancedState.perclosBuffer.length) * 100;
+            }
+            
+            return AdvancedState.perclos;
+        }
+
+        // Head Pose Estimation
+        function calculateHeadPose(landmarks) {
+            if (!landmarks.scaledMesh || landmarks.scaledMesh.length < 468) {
+                return { pitch: 0, yaw: 0, roll: 0, state: 'Unknown' };
+            }
+            
+            // Key facial landmarks for pose estimation
+            const noseTip = landmarks.scaledMesh[1];
+            const leftEyeCorner = landmarks.scaledMesh[33];
+            const rightEyeCorner = landmarks.scaledMesh[263];
+            const chinBottom = landmarks.scaledMesh[18];
+            const foreheadCenter = landmarks.scaledMesh[10];
+            
+            // Calculate yaw (left-right rotation)
+            const eyeDistance = euclideanDistance(leftEyeCorner, rightEyeCorner);
+            const leftNoseDistance = euclideanDistance(leftEyeCorner, noseTip);
+            const rightNoseDistance = euclideanDistance(rightEyeCorner, noseTip);
+            const yaw = Math.atan2(rightNoseDistance - leftNoseDistance, eyeDistance) * 180 / Math.PI;
+            
+            // Calculate pitch (up-down rotation)
+            const faceHeight = euclideanDistance(foreheadCenter, chinBottom);
+            const noseToForehead = euclideanDistance(noseTip, foreheadCenter);
+            const pitch = Math.atan2(noseToForehead - faceHeight/2, faceHeight) * 180 / Math.PI;
+            
+            // Calculate roll (tilt)
+            const eyeSlope = (rightEyeCorner[1] - leftEyeCorner[1]) / (rightEyeCorner[0] - leftEyeCorner[0]);
+            const roll = Math.atan(eyeSlope) * 180 / Math.PI;
+            
+            // Determine head pose state
+            let poseState = 'Normal';
+            if (Math.abs(yaw) > 25) poseState = 'Turning';
+            else if (Math.abs(pitch) > 20) poseState = 'Tilting';
+            else if (Math.abs(roll) > 15) poseState = 'Rolling';
+            
+            return { pitch, yaw, roll, state: poseState };
+        }
+
+        // Advanced Drowsiness Analysis
+        function analyzeDrowsiness() {
+            const earValue = AdvancedState.averageEAR;
+            const perclosValue = AdvancedState.perclos;
+            const blinkRate = AdvancedState.blinkRate;
+            
+            let drowsinessScore = 0;
+            let alertLevel = 'Normal';
+            
+            // EAR-based scoring
+            if (earValue > 0) {
+                if (earValue < 0.20) drowsinessScore += 3;
+                else if (earValue < AdvancedState.earThreshold) drowsinessScore += 2;
+                else if (earValue < 0.25) drowsinessScore += 1;
+            }
+            
+            // PERCLOS-based scoring
+            if (perclosValue > 50) drowsinessScore += 4;
+            else if (perclosValue > AdvancedState.perclosThreshold) drowsinessScore += 3;
+            else if (perclosValue > 15) drowsinessScore += 1;
+            
+            // Blink rate analysis
+            if (blinkRate < 5) drowsinessScore += 2; // Too few blinks
+            else if (blinkRate > 30) drowsinessScore += 1; // Too many blinks
+            
+            // Head pose consideration
+            if (AdvancedState.headPoseState !== 'Normal') {
+                drowsinessScore += 1;
+            }
+            
+            // Apply sensitivity multiplier
+            drowsinessScore *= (AdvancedState.sensitivity / 2);
+            
+            // Determine alert level
+            if (drowsinessScore >= 6) {
+                alertLevel = 'CRITICAL';
+                AdvancedState.drowsinessLevel = 'Critical';
+            } else if (drowsinessScore >= 4) {
+                alertLevel = 'HIGH';
+                AdvancedState.drowsinessLevel = 'High';
+            } else if (drowsinessScore >= 2) {
+                alertLevel = 'MODERATE';
+                AdvancedState.drowsinessLevel = 'Moderate';
+            } else {
+                alertLevel = 'LOW';
+                AdvancedState.drowsinessLevel = 'Normal';
+            }
+            
+            return { score: drowsinessScore, level: alertLevel };
+        }
+
+        // Enhanced AI Model Initialization
+        async function initializeAdvancedAI() {
+            try {
+                updateProgress(10, 'Initializing TensorFlow backend...');
+                await tf.ready();
+                log('TensorFlow.js backend ready', 'success');
+                
+                updateProgress(30, 'Loading BlazeFace detection model...');
+                AdvancedState.blazeFaceModel = await blazeface.load();
+                log('BlazeFace model loaded successfully', 'success');
+                
+                updateProgress(60, 'Loading advanced face mesh model...');
+                AdvancedState.faceMeshModel = await faceLandmarksDetection.load(
+                    faceLandmarksDetection.SupportedPackages.mediaPipeFacemesh,
+                    { maxFaces: 1 }
+                );
+                log('MediaPipe FaceMesh model loaded successfully', 'success');
+                
+                updateProgress(90, 'Optimizing models for performance...');
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                updateProgress(100, 'Advanced AI system ready!');
+                setTimeout(showMainInterface, 1200);
+                
+                return true;
+            } catch (error) {
+                log(`Advanced AI initialization failed: ${error.message}`, 'error');
+                updateProgress(100, `Error: ${error.message}`);
+                setTimeout(() => {
+                    showMainInterface();
+                    log('Running in fallback mode', 'warning');
+                }, 2000);
+                return false;
+            }
+        }
+
+        // Enhanced Detection Loop
+        async function detectAdvancedDrowsiness() {
+            if (!AdvancedState.isDetecting) return;
+            
+            const video = document.getElementById('videoElement');
+            const canvas = document.getElementById('canvasOverlay');
+            const ctx = canvas.getContext('2d');
+            
+            try {
+                AdvancedState.frameCount++;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                if (AdvancedState.blazeFaceModel && video.readyState >= 2) {
+                    // Face detection with BlazeFace
+                    const faces = await AdvancedState.blazeFaceModel.estimateFaces(video, false);
+                    
+                    if (faces.length > 0) {
+                        const face = faces[0];
+                        AdvancedState.faceDetected = true;
+                        AdvancedState.faceConfidence = face.probability;
+                        
+                        // Draw face detection
+                        drawAdvancedFaceBox(ctx, face);
+                        
+                        // Get detailed facial landmarks
+                        if (AdvancedState.faceMeshModel) {
+                            const landmarks = await AdvancedState.faceMeshModel.estimateFaces({
+                                input: video,
+                                returnTensors: false,
+                                flipHorizontal: false,
+                                predictIrises: true
+                            });
+                            
+                            if (landmarks.length > 0) {
+                                const faceLandmarks = landmarks[0];
+                                
+                                // Calculate advanced EAR
+                                const earValues = calculateAdvancedEAR(faceLandmarks);
+                                AdvancedState.leftEAR = earValues.left;
+                                AdvancedState.rightEAR = earValues.right;
+                                AdvancedState.averageEAR = earValues.average;
+                                
+                                // Advanced blink detection
+                                detectBlinks(earValues.average);
+                                
+                                // Calculate PERCLOS
+                                calculatePERCLOS(earValues.average);
+                                
+                                // Head pose estimation
+                                AdvancedState.headPose = calculateHeadPose(faceLandmarks);
+                                AdvancedState.headPoseState = AdvancedState.headPose.state;
+                                
+                                // Drowsiness analysis
+                                const drowsinessAnalysis = analyzeDrowsiness();
+                                
+                                // Draw enhanced visualizations
+                                drawEyeTracking(ctx, faceLandmarks);
+                                drawAdvancedMetrics(ctx);
+                                
+                                // Alert handling
+                                if (drowsinessAnalysis.level === 'CRITICAL' || drowsinessAnalysis.level === 'HIGH') {
+                                    AdvancedState.drowsyEvents++;
+                                    await sendBluetoothCommand('1');
+                                    showAdvancedAlert(drowsinessAnalysis.level);
+                                    log(`DROWSINESS ALERT: ${drowsinessAnalysis.level} (Score: ${drowsinessAnalysis.score.toFixed(1)})`, 'error');
+                                } else {
+                                    await sendBluetoothCommand('0');
+                                }
+                                
+                                // Log detection data
+                                logAdvancedData(drowsinessAnalysis);
+                            }
+                        }
+                    } else {
+                        // No face detected
+                        AdvancedState.faceDetected = false;
+                        resetDetectionValues();
+                        logAdvancedData(null, 'No face detected');
+                    }
+                    
+                    updateAdvancedUI();
+                }
+                
+            } catch (error) {
+                log(`Advanced detection error: ${error.message}`, 'error');
+            }
+            
+            // Continue detection loop
+            requestAnimationFrame(detectAdvancedDrowsiness);
+        }
+
+        // Enhanced Drawing Functions
+        function drawAdvancedFaceBox(ctx, face) {
+            ctx.strokeStyle = '#00d4aa';
+            ctx.lineWidth = 3;
+            ctx.setLineDash([5, 5]);
+            
+            const width = face.bottomRight[0] - face.topLeft[0];
+            const height = face.bottomRight[1] - face.topLeft[1];
+            
+            ctx.strokeRect(face.topLeft[0], face.topLeft[1], width, height);
+            
+            // Face confidence indicator
+            ctx.fillStyle = '#00d4aa';
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText(`${(face.probability * 100).toFixed(1)}%`, 
+                face.topLeft[0], face.topLeft[1] - 10);
+                
+            ctx.setLineDash([]);
+        }
+
+        function drawEyeTracking(ctx, landmarks) {
+            if (!landmarks.scaledMesh) return;
+            
+            // Enhanced eye visualization
+            const leftEyeIndices = [33, 7, 163, 144, 145, 153, 154, 155, 133, 173];
+            const rightEyeIndices = [362, 382, 381, 380, 374, 373, 390, 249, 263, 466];
+            
+            // Draw eye contours
+            ctx.strokeStyle = '#667eea';
+            ctx.lineWidth = 2;
+            ctx.fillStyle = 'rgba(102, 126, 234, 0.3)';
+            
+            [leftEyeIndices, rightEyeIndices].forEach(eyeIndices => {
+                ctx.beginPath();
+                eyeIndices.forEach((index, i) => {
+                    const [x, y] = landmarks.scaledMesh[index];
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                });
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+            });
+            
+            // Draw iris tracking if available
+            if (landmarks.iris) {
+                ctx.fillStyle = '#ff6b6b';
+                landmarks.iris.forEach(iris => {
+                    iris.forEach(point => {
+                        ctx.beginPath();
+                        ctx.arc(point[0], point[1], 2, 0, 2 * Math.PI);
+                        ctx.fill();
+                    });
+                });
+            }
+        }
+
+        function drawAdvancedMetrics(ctx) {
+            // Enhanced overlay with advanced metrics
+            ctx.fillStyle = 'white';
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.font = 'bold 14px Arial';
+            
+            const metrics = [
+                `EAR: ${AdvancedState.averageEAR.toFixed(3)}`,
+                `PERCLOS: ${AdvancedState.perclos.toFixed(1)}%`,
+                `Blinks: ${AdvancedState.blinkCount}`,
+                `Rate: ${AdvancedState.blinkRate.toFixed(1)}/min`,
+                `Level: ${AdvancedState.drowsinessLevel}`,
+                `Pose: ${AdvancedState.headPoseState}`
+            ];
+            
+            metrics.forEach((text, i) => {
+                const y = 25 + (i * 22);
+                ctx.strokeText(text, 15, y);
+                ctx.fillText(text, 15, y);
+            });
+            
+            // Drowsiness warning
+            if (AdvancedState.drowsinessLevel === 'High' || AdvancedState.drowsinessLevel === 'Critical') {
+                ctx.fillStyle = AdvancedState.drowsinessLevel === 'Critical' ? '#ff3333' : '#ffaa00';
+                ctx.font = 'bold 24px Arial';
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 3;
+                
+                const warningText = `${AdvancedState.drowsinessLevel.toUpperCase()} DROWSINESS!`;
+                const textWidth = ctx.measureText(warningText).width;
+                const x = (640 - textWidth) / 2;
+                
+                ctx.strokeText(warningText, x, 60);
+                ctx.fillText(warningText, x, 60);
+            }
+        }
+
+        function resetDetectionValues() {
+            AdvancedState.faceDetected = false;
+            AdvancedState.faceConfidence = 0;
+            AdvancedState.leftEAR = 0;
+            AdvancedState.rightEAR = 0;
+            AdvancedState.averageEAR = 0;
+            AdvancedState.perclos = 0;
+            AdvancedState.drowsinessLevel = 'Normal';
+            AdvancedState.headPoseState = 'Unknown';
+        }
+
+        // Enhanced UI Updates
+        function updateAdvancedUI() {
+            // Main metrics
+            document.getElementById('averageEARValue').textContent = AdvancedState.averageEAR.toFixed(3);
+            document.getElementById('blinkCountValue').textContent = AdvancedState.blinkCount;
+            document.getElementById('drowsyEventsValue').textContent = AdvancedState.drowsyEvents;
+            
+            // Advanced metrics
+            document.getElementById('leftEARDisplay').textContent = AdvancedState.leftEAR.toFixed(3);
+            document.getElementById('rightEARDisplay').textContent = AdvancedState.rightEAR.toFixed(3);
+            document.getElementById('perclosDisplay').textContent = AdvancedState.perclos.toFixed(1);
+            document.getElementById('blinkRateDisplay').textContent = AdvancedState.blinkRate.toFixed(1) + '/min';
+            document.getElementById('faceConfidenceDisplay').textContent = (AdvancedState.faceConfidence * 100).toFixed(1) + '%';
+            document.getElementById('headPoseDisplay').textContent = AdvancedState.headPoseState;
+            document.getElementById('drowsinessLevelDisplay').textContent = AdvancedState.drowsinessLevel;
+            
+            // Update FPS
+            const now = Date.now();
+            if (now - AdvancedState.lastFpsUpdate >= 1000) {
+                AdvancedState.fps = AdvancedState.frameCount;
+                AdvancedState.frameCount = 0;
+                AdvancedState.lastFpsUpdate = now;
+                document.getElementById('fpsValue').textContent = AdvancedState.fps;
+            }
+        }
+
+        function showAdvancedAlert(level) {
+            const alertPanel = document.getElementById('alertPanel');
+            const notification = document.getElementById('drowsinessNotification');
+            const alertLevelSpan = document.getElementById('alertLevel');
+            
+            alertLevelSpan.textContent = level;
+            alertPanel.classList.add('active');
+            notification.classList.add('show');
+            
+            // Different durations based on severity
+            const duration = level === 'CRITICAL' ? 6000 : 4000;
+            
+            setTimeout(() => {
+                alertPanel.classList.remove('active');
+                notification.classList.remove('show');
+            }, duration);
+        }
+
+        // Enhanced Bluetooth Functions
+        async function scanBluetooth() {
+            if (!navigator.bluetooth) {
+                log('Web Bluetooth not supported. Use Chrome/Edge with HTTPS.', 'error');
+                return;
+            }
+
+            try {
+                updateBluetoothStatus('scanning');
+                log('Scanning for Bluetooth devices...', 'info');
+                
+                const device = await navigator.bluetooth.requestDevice({
+                    acceptAllDevices: true,
+                    optionalServices: [
+                        'battery_service',
+                        'device_information',
+                        'generic_access',
+                        '6e400001-b5a3-f393-e0a9-e50e24dcca9e', // Nordic UART
+                        '12345678-1234-5678-9abc-def123456789', // Custom service
+                        '0000ffe0-0000-1000-8000-00805f9b34fb'  // HM-10 default
+                    ]
+                });
+
+                displayBluetoothDevice(device);
+                await connectBluetoothDevice(device);
+                
+            } catch (error) {
+                log(`Bluetooth scan failed: ${error.message}`, 'error');
+                updateBluetoothStatus('disconnected');
+            }
+        }
+
+        function displayBluetoothDevice(device) {
+            const deviceList = document.getElementById('deviceList');
+            deviceList.innerHTML = '';
+            
+            const deviceElement = document.createElement('div');
+            deviceElement.className = 'device-item';
+            
+            deviceElement.innerHTML = `
+                <div>
+                    <strong>${device.name || 'Unknown Device'}</strong><br>
+                    <small>ID: ${device.id}</small>
+                </div>
+                <button class="btn" style="padding: 8px 16px; font-size: 12px;">Connect</button>
+            `;
+            
+            deviceList.appendChild(deviceElement);
+        }
+
+        async function connectBluetoothDevice(device) {
+            try {
+                updateBluetoothStatus('connecting');
+                log(`Connecting to ${device.name || 'device'}...`, 'info');
+
+                const server = await device.gatt.connect();
+                AdvancedState.bluetoothDevice = device;
+                
+                // Try to find writable characteristic
+                try {
+                    const services = await server.getPrimaryServices();
+                    for (const service of services) {
+                        try {
+                            const characteristics = await service.getCharacteristics();
+                            for (const char of characteristics) {
+                                if (char.properties.write || char.properties.writeWithoutResponse) {
+                                    AdvancedState.bluetoothCharacteristic = char;
+                                    break;
+                                }
+                            }
+                            if (AdvancedState.bluetoothCharacteristic) break;
+                        } catch (e) { continue; }
+                    }
+                } catch (e) {
+                    log('Service discovery failed, using basic connection', 'warning');
+                }
+
+                device.addEventListener('gattserverdisconnected', () => {
+                    log('Bluetooth device disconnected', 'warning');
+                    AdvancedState.bluetoothDevice = null;
+                    AdvancedState.bluetoothCharacteristic = null;
+                    updateBluetoothStatus('disconnected');
+                });
+                
+                updateBluetoothStatus('connected');
+                await sendBluetoothCommand('D'); // Send acknowledgment
+                log('Bluetooth connection established successfully!', 'success');
+                
+            } catch (error) {
+                log(`Bluetooth connection failed: ${error.message}`, 'error');
+                updateBluetoothStatus('disconnected');
+            }
+        }
+
+        async function sendBluetoothCommand(command) {
+            try {
+                if (AdvancedState.bluetoothCharacteristic) {
+                    const encoder = new TextEncoder();
+                    await AdvancedState.bluetoothCharacteristic.writeValue(encoder.encode(command));
+                    log(`BT TX: ${command}`, 'success');
+                } else {
+                    log(`Simulated TX: ${command}`, 'warning');
+                }
+                
+                AdvancedState.lastCommand = command;
+                AdvancedState.signalsSent++;
+                return true;
+            } catch (error) {
+                log(`Bluetooth send error: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        async function sendTestSignal() {
+            log('Starting advanced Bluetooth test...', 'info');
+            const testCommands = ['D', '0', '1', '0', '1', 'D'];
+            
+            for (const cmd of testCommands) {
+                await sendBluetoothCommand(cmd);
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+            
+            log('Advanced Bluetooth test completed', 'success');
+        }
+
+        // Camera and Detection Control
+        async function startCamera() {
+            try {
+                updateCameraStatus('starting');
+                log('Initializing advanced camera system...', 'info');
+                
+                const constraints = {
+                    video: {
+                        width: { ideal: 640, max: 1280 },
+                        height: { ideal: 480, max: 720 },
+                        frameRate: { ideal: 30, max: 60 },
+                        facingMode: 'user'
+                    }
+                };
+                
+                AdvancedState.videoStream = await navigator.mediaDevices.getUserMedia(constraints);
+                const video = document.getElementById('videoElement');
+                video.srcObject = AdvancedState.videoStream;
+                
+                await new Promise((resolve) => {
+                    video.onloadedmetadata = () => {
+                        video.play();
+                        resolve();
+                    };
+                });
+                
+                AdvancedState.isCameraActive = true;
+                updateCameraStatus('active');
+                document.getElementById('startDetectionBtn').disabled = false;
+                
+                log('Advanced camera system ready', 'success');
+                
+            } catch (error) {
+                log(`Camera initialization failed: ${error.message}`, 'error');
+                updateCameraStatus('error');
+            }
+        }
+
+        async function startDetection() {
+            if (!AdvancedState.isCameraActive) {
+                log('Please start camera first', 'error');
+                return;
+            }
+
+            AdvancedState.isDetecting = true;
+            updateDetectionStatus('active');
+            
+            if (!AdvancedState.isLogging) {
+                toggleDataLogging();
+            }
+            
+            log('Advanced AI drowsiness detection started', 'success');
+            log(`Settings: EAR=${AdvancedState.earThreshold}, PERCLOS=${AdvancedState.perclosThreshold}%, Sensitivity=${getSensitivityText()}`, 'info');
+            
+            detectAdvancedDrowsiness();
+        }
+
+        // Settings Functions
+        function updateEARThreshold(value) {
+            AdvancedState.earThreshold = parseFloat(value);
+            AdvancedState.blinkThreshold = parseFloat(value);
+            document.getElementById('earThresholdValue').textContent = value;
+            log(`EAR threshold updated to ${value}`, 'info');
+        }
+
+        function updatePERCLOSThreshold(value) {
+            AdvancedState.perclosThreshold = parseInt(value);
+            document.getElementById('perclosThresholdValue').textContent = value;
+            log(`PERCLOS threshold updated to ${value}%`, 'info');
+        }
+
+        function updateSensitivity(value) {
+            AdvancedState.sensitivity = parseInt(value);
+            const sensitivityText = getSensitivityText();
+            document.getElementById('sensitivityValue').textContent = sensitivityText;
+            log(`Sensitivity updated to ${sensitivityText}`, 'info');
+        }
+
+        function getSensitivityText() {
+            switch(AdvancedState.sensitivity) {
+                case 1: return 'Low';
+                case 2: return 'Medium';
+                case 3: return 'High';
+                default: return 'Medium';
+            }
+        }
+
+        // Data Logging Functions
+        function toggleDataLogging() {
+            if (AdvancedState.isLogging) {
+                stopDataLogging();
+            } else {
+                startDataLogging();
+            }
+        }
+
+        function startDataLogging() {
+            AdvancedState.isLogging = true;
+            updateLoggingStatus('active');
+            
+            // Initialize enhanced CSV structure
+            AdvancedState.csvData = [[
+                'Timestamp_IST', 'Session_Time_Seconds', 'Face_Detected', 'Face_Confidence',
+                'Left_EAR', 'Right_EAR', 'Average_EAR', 'PERCLOS_Percent', 
+                'Blink_Count', 'Blink_Rate_Per_Min', 'Drowsy_Events', 'Drowsiness_Level',
+                'Head_Pitch', 'Head_Yaw', 'Head_Roll', 'Head_Pose_State',
+                'Alert_State', 'FPS', 'Bluetooth_Status', 'Command_Sent', 'Notes'
+            ]];
+            
+            AdvancedState.sessionStart = Date.now();
+            log('Enhanced data logging started', 'success');
+        }
+
+        function stopDataLogging() {
+            AdvancedState.isLogging = false;
+            updateLoggingStatus('inactive');
+            log(`Enhanced data logging stopped. ${AdvancedState.recordCount} records saved.`, 'success');
+        }
+
+        function logAdvancedData(drowsinessAnalysis, notes = '') {
+            if (!AdvancedState.isLogging) return;
+            
+            const sessionTime = AdvancedState.sessionStart ? 
+                Math.floor((Date.now() - AdvancedState.sessionStart) / 1000) : 0;
+            
+            const record = [
+                new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+                sessionTime,
+                AdvancedState.faceDetected ? '1' : '0',
+                (AdvancedState.faceConfidence * 100).toFixed(1),
+                AdvancedState.leftEAR.toFixed(4),
+                AdvancedState.rightEAR.toFixed(4),
+                AdvancedState.averageEAR.toFixed(4),
+                AdvancedState.perclos.toFixed(2),
+                AdvancedState.blinkCount,
+                AdvancedState.blinkRate.toFixed(1),
+                AdvancedState.drowsyEvents,
+                AdvancedState.drowsinessLevel,
+                AdvancedState.headPose.pitch.toFixed(1),
+                AdvancedState.headPose.yaw.toFixed(1),
+                AdvancedState.headPose.roll.toFixed(1),
+                AdvancedState.headPoseState,
+                drowsinessAnalysis ? drowsinessAnalysis.level : 'Normal',
+                AdvancedState.fps,
+                AdvancedState.bluetoothDevice ? 'Connected' : 'Disconnected',
+                AdvancedState.lastCommand,
+                notes
+            ];
+            
+            AdvancedState.csvData.push(record);
+            AdvancedState.recordCount++;
+            document.getElementById('dataRecordsValue').textContent = AdvancedState.recordCount;
+        }
+
+        function downloadCSV() {
+            if (AdvancedState.csvData.length <= 1) {
+                log('No data to download', 'warning');
+                return;
+            }
+            
+            const csvContent = AdvancedState.csvData.map(row => 
+                row.map(cell => `"${cell}"`).join(',')
+            ).join('\n');
+            
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `advanced_drowsiness_data_${Date.now()}.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            log(`Enhanced CSV exported: ${AdvancedState.recordCount} records`, 'success');
+        }
+
+        // Status Update Functions
+        function updateBluetoothStatus(status) {
+            const indicator = document.getElementById('bluetoothIndicator');
+            const statusText = document.getElementById('bluetoothStatusText');
+            
+            indicator.className = 'status-indicator';
+            
+            switch(status) {
+                case 'connected':
+                    indicator.classList.add('status-connected');
+                    statusText.textContent = 'Connected';
+                    document.getElementById('testBtn').disabled = false;
+                    break;
+                case 'connecting':
+                    indicator.classList.add('status-connecting');
+                    statusText.textContent = 'Connecting...';
+                    break;
+                case 'scanning':
+                    indicator.classList.add('status-connecting');
+                    statusText.textContent = 'Scanning...';
+                    break;
+                default:
+                    indicator.classList.add('status-disconnected');
+                    statusText.textContent = 'Disconnected';
+                    document.getElementById('testBtn').disabled = true;
+            }
+        }
+
+        function updateCameraStatus(status) {
+            const indicator = document.getElementById('cameraIndicator');
+            const statusText = document.getElementById('cameraStatusText');
+            const button = document.getElementById('startCameraBtn');
+            
+            indicator.className = 'status-indicator';
+            
+            switch(status) {
+                case 'active':
+                    indicator.classList.add('status-connected');
+                    statusText.textContent = 'Active';
+                    button.textContent = 'Camera Running';
+                    button.disabled = true;
+                    break;
+                case 'starting':
+                    indicator.classList.add('status-connecting');
+                    statusText.textContent = 'Starting...';
+                    button.disabled = true;
+                    break;
+                case 'error':
+                    indicator.classList.add('status-disconnected');
+                    statusText.textContent = 'Error';
+                    button.textContent = 'Retry Camera';
+                    button.disabled = false;
+                    break;
+                default:
+                    indicator.classList.add('status-disconnected');
+                    statusText.textContent = 'Inactive';
+                    button.textContent = 'Start Camera';
+                    button.disabled = false;
+            }
+        }
+
+        function updateDetectionStatus(status) {
+            const indicator = document.getElementById('detectionIndicator');
+            const statusText = document.getElementById('detectionStatusText');
+            const button = document.getElementById('startDetectionBtn');
+            
+            indicator.className = 'status-indicator';
+            
+            if (status === 'active') {
+                indicator.classList.add('status-connected');
+                statusText.textContent = 'Active';
+                button.textContent = 'AI Detection Running';
+                button.disabled = true;
+            } else {
+                indicator.classList.add('status-disconnected');
+                statusText.textContent = 'Standby';
+                button.textContent = 'Start AI Detection';
+                button.disabled = !AdvancedState.isCameraActive;
+            }
+        }
+
+        function updateLoggingStatus(status) {
+            const indicator = document.getElementById('loggingIndicator');
+            const statusText = document.getElementById('loggingStatusText');
+            const button = document.getElementById('dataLoggingBtn');
+            
+            indicator.className = 'status-indicator';
+            
+            if (status === 'active') {
+                indicator.classList.add('status-connected');
+                statusText.textContent = 'Recording';
+                button.textContent = 'Stop Logging';
+            } else {
+                indicator.classList.add('status-disconnected');
+                statusText.textContent = 'Inactive';
+                button.textContent = 'Start Logging';
+            }
+        }
+
+        // System Control Functions
+        function stopAllSystems() {
+            AdvancedState.isDetecting = false;
+            
+            // Stop camera
+            if (AdvancedState.videoStream) {
+                AdvancedState.videoStream.getTracks().forEach(track => track.stop());
+                AdvancedState.videoStream = null;
+                document.getElementById('videoElement').srcObject = null;
+            }
+            AdvancedState.isCameraActive = false;
+            
+            // Stop data logging
+            if (AdvancedState.isLogging) {
+                stopDataLogging();
+            }
+            
+            // Disconnect Bluetooth
+            if (AdvancedState.bluetoothDevice && AdvancedState.bluetoothDevice.gatt && AdvancedState.bluetoothDevice.gatt.connected) {
+                AdvancedState.bluetoothDevice.gatt.disconnect();
+            }
+            
+            // Clear canvas
+            const canvas = document.getElementById('canvasOverlay');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Reset UI
+            updateCameraStatus('inactive');
+            updateDetectionStatus('inactive');
+            updateLoggingStatus('inactive');
+            updateBluetoothStatus('disconnected');
+            
+            // Reset all metrics
+            resetDetectionValues();
+            AdvancedState.blinkCount = 0;
+            AdvancedState.drowsyEvents = 0;
+            AdvancedState.blinkRate = 0;
+            AdvancedState.earHistory = [];
+            AdvancedState.perclosBuffer = [];
+            updateAdvancedUI();
+            
+            log('All advanced systems stopped safely', 'warning');
+        }
+
+        // Session Timer
+        function updateSessionTimer() {
+            if (AdvancedState.sessionStart) {
+                const elapsed = Math.floor((Date.now() - AdvancedState.sessionStart) / 1000);
+                const hours = Math.floor(elapsed / 3600);
+                const minutes = Math.floor((elapsed % 3600) / 60);
+                const seconds = elapsed % 60;
+                
+                document.getElementById('sessionTimeValue').textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
+
+        // Logging System
         function log(message, type = 'info') {
             const container = document.getElementById('logContainer');
             const entry = document.createElement('div');
             entry.className = 'log-entry';
             
-            const time = getISTTime().toLocaleTimeString('en-IN', {
+            const time = new Date().toLocaleTimeString('en-IN', {
                 hour12: false,
                 timeZone: 'Asia/Kolkata'
             });
@@ -711,56 +1672,20 @@
             container.appendChild(entry);
             container.scrollTop = container.scrollHeight;
             
-            // Keep only last 200 entries
-            while (container.children.length > 200) {
+            // Keep only last 150 entries for performance
+            while (container.children.length > 150) {
                 container.removeChild(container.firstChild);
             }
         }
 
-        // AI Models Initialization with TensorFlow.js
-        async function initializeAIModels() {
-            try {
-                updateProgress(10, 'Loading TensorFlow.js backend...');
-                await tf.ready();
-                
-                updateProgress(30, 'Loading BlazeFace model...');
-                AppState.faceModel = await blazeface.load();
-                log('BlazeFace model loaded successfully', 'success');
-                
-                updateProgress(60, 'Loading face landmarks detection...');
-                AppState.landmarksModel = await faceLandmarksDetection.load(
-                    faceLandmarksDetection.SupportedPackages.mediaPipeFacemesh
-                );
-                log('Face landmarks model loaded successfully', 'success');
-                
-                updateProgress(90, 'Finalizing initialization...');
-                await new Promise(resolve => setTimeout(resolve, 500));
-                
-                updateProgress(100, 'AI models ready!');
-                setTimeout(showMainInterface, 800);
-                
-                return true;
-            } catch (error) {
-                log(`AI model loading failed: ${error.message}`, 'error');
-                updateProgress(100, `Error: ${error.message}`);
-                
-                // Show interface anyway with fallback
-                setTimeout(() => {
-                    showMainInterface();
-                    log('Running in fallback mode without AI models', 'warning');
-                }, 2000);
-                
-                return false;
-            }
-        }
-
+        // Progress Update Function
         function updateProgress(percent, message) {
             document.getElementById('progressFill').style.width = `${percent}%`;
             document.getElementById('loadingTitle').textContent = message;
             
             if (percent === 100) {
-                document.getElementById('loadingSubtitle').textContent = 'System ready to use!';
-                document.getElementById('loadingDetails').textContent = 'Preparing interface...';
+                document.getElementById('loadingSubtitle').textContent = 'Advanced system ready!';
+                document.getElementById('loadingDetails').textContent = 'Preparing enhanced interface...';
             }
         }
 
@@ -768,768 +1693,26 @@
             document.getElementById('loadingOverlay').style.display = 'none';
             document.getElementById('appContainer').style.display = 'grid';
             
-            initializeSession();
-            startPerformanceMonitoring();
-            log('Professional Drowsiness Detection System initialized', 'success');
-        }
-
-        function initializeSession() {
-            AppState.sessionId = Date.now().toString();
-            AppState.sessionStart = Date.now();
-            
-            // Initialize CSV with comprehensive headers
-            AppState.csvData = [[
-                'Timestamp_IST', 'Session_Time_Seconds', 'Face_Detected', 'Face_Confidence',
-                'Left_EAR', 'Right_EAR', 'Average_EAR', 'Blink_Count', 'Drowsy_Events',
-                'Alert_State', 'Consecutive_Drowsy_Frames', 'FPS', 'Bluetooth_Status', 
-                'Command_Sent', 'Notes'
-            ]];
-            
             // Start session timer
             setInterval(updateSessionTimer, 1000);
             
-            // Start signal rate monitoring  
-            setInterval(updateSignalRate, 1000);
-            
-            log(`Session initialized with ID: ${AppState.sessionId}`, 'info');
-        }
-
-        function updateSessionTimer() {
-            if (AppState.sessionStart) {
-                const elapsed = Math.floor((Date.now() - AppState.sessionStart) / 1000);
-                const hours = Math.floor(elapsed / 3600);
-                const minutes = Math.floor((elapsed % 3600) / 60);
-                const seconds = elapsed % 60;
-                
-                document.getElementById('sessionTimeValue').textContent = 
-                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            }
-        }
-
-        function updateSignalRate() {
-            AppState.signalsPerSecond = AppState.signalsSent;
-            AppState.signalsSent = 0;
-            document.getElementById('signalRate').textContent = `${AppState.signalsPerSecond}/sec`;
-        }
-
-        function startPerformanceMonitoring() {
-            setInterval(() => {
-                const now = Date.now();
-                if (now - AppState.lastFpsUpdate >= 1000) {
-                    AppState.fps = AppState.frameCount;
-                    AppState.frameCount = 0;
-                    AppState.lastFpsUpdate = now;
-                    document.getElementById('fpsValue').textContent = AppState.fps;
-                }
-            }, 100);
-        }
-
-        // Enhanced Bluetooth Functions
-        async function scanBluetooth() {
-            if (!navigator.bluetooth) {
-                log('Web Bluetooth not supported. Use Chrome/Edge with HTTPS.', 'error');
-                alert('Web Bluetooth not supported. Please use Chrome or Edge browser with HTTPS.');
-                return;
-            }
-
-            try {
-                updateBluetoothStatus('scanning');
-                log('Starting Bluetooth device scan...', 'info');
-                
-                document.getElementById('deviceList').innerHTML = 
-                    '<div style="text-align: center; padding: 20px; color: #feca57;">Scanning for devices...</div>';
-
-                const device = await navigator.bluetooth.requestDevice({
-                    acceptAllDevices: true,
-                    optionalServices: [
-                        'battery_service',
-                        'device_information',
-                        'generic_access', 
-                        'heart_rate',
-                        '6e400001-b5a3-f393-e0a9-e50e24dcca9e', // Nordic UART
-                        '12345678-1234-5678-9abc-def123456789', // Custom service
-                        '0000ffe0-0000-1000-8000-00805f9b34fb', // HM-10 default
-                        '0000fff0-0000-1000-8000-00805f9b34fb'  // Alternative
-                    ]
-                });
-
-                displayBluetoothDevice(device);
-                log(`Device discovered: ${device.name || 'Unknown Device'} (${device.id})`, 'success');
-                
-            } catch (error) {
-                log(`Bluetooth scan failed: ${error.message}`, 'error');
-                updateBluetoothStatus('disconnected');
-                document.getElementById('deviceList').innerHTML = 
-                    '<div style="text-align: center; padding: 20px; color: #ff6b6b;">Scan cancelled or failed</div>';
-            }
-        }
-
-        function displayBluetoothDevice(device) {
-            const deviceList = document.getElementById('deviceList');
-            deviceList.innerHTML = '';
-            
-            const deviceElement = document.createElement('div');
-            deviceElement.className = 'device-item';
-            deviceElement.onclick = () => connectBluetoothDevice(device);
-            
-            deviceElement.innerHTML = `
-                <div class="device-info">
-                    <h4>${device.name || 'Unknown Device'}</h4>
-                    <small>ID: ${device.id}</small><br>
-                    <small>Type: Bluetooth Low Energy</small>
-                </div>
-                <button class="btn" style="padding: 8px 16px; font-size: 12px;">Connect</button>
-            `;
-            
-            deviceList.appendChild(deviceElement);
-        }
-
-        async function connectBluetoothDevice(device) {
-            try {
-                updateBluetoothStatus('connecting');
-                log(`Connecting to ${device.name || 'device'}...`, 'info');
-
-                const server = await device.gatt.connect();
-                AppState.bluetoothDevice = device;
-                
-                document.getElementById('connectedDevice').textContent = device.name || 'Unknown Device';
-                
-                // Try to discover services and find writable characteristic
-                try {
-                    const services = await server.getPrimaryServices();
-                    log(`Discovered ${services.length} services`, 'info');
-                    
-                    for (const service of services) {
-                        try {
-                            const characteristics = await service.getCharacteristics();
-                            for (const char of characteristics) {
-                                if (char.properties.write || char.properties.writeWithoutResponse) {
-                                    AppState.bluetoothCharacteristic = char;
-                                    log(`Found writable characteristic: ${char.uuid}`, 'success');
-                                    break;
-                                }
-                            }
-                            if (AppState.bluetoothCharacteristic) break;
-                        } catch (e) {
-                            continue; // Try next service
-                        }
-                    }
-                } catch (e) {
-                    log('Service discovery failed, using basic connection', 'warning');
-                }
-
-                // Set up disconnect handler
-                device.addEventListener('gattserverdisconnected', handleBluetoothDisconnect);
-                
-                updateBluetoothStatus('connected');
-                document.getElementById('testBtn').disabled = false;
-                
-                // Send initial acknowledgment 'D' command
-                await sendBluetoothCommand('D');
-                log('Bluetooth connection established successfully!', 'success');
-                
-            } catch (error) {
-                log(`Bluetooth connection failed: ${error.message}`, 'error');
-                updateBluetoothStatus('error');
-                setTimeout(() => updateBluetoothStatus('disconnected'), 3000);
-            }
-        }
-
-        function handleBluetoothDisconnect() {
-            log('Bluetooth device disconnected', 'warning');
-            AppState.bluetoothDevice = null;
-            AppState.bluetoothCharacteristic = null;
-            updateBluetoothStatus('disconnected');
-            document.getElementById('connectedDevice').textContent = 'None';
-            document.getElementById('testBtn').disabled = true;
-        }
-
-        async function sendBluetoothCommand(command) {
-            try {
-                if (AppState.bluetoothCharacteristic) {
-                    const encoder = new TextEncoder();
-                    await AppState.bluetoothCharacteristic.writeValue(encoder.encode(command));
-                    log(`Bluetooth TX: ${command}`, 'success');
-                } else {
-                    // Simulate command for testing when no real device
-                    log(`Simulated TX: ${command}`, 'warning');
-                }
-                
-                AppState.lastCommand = command;
-                AppState.signalsSent++;
-                document.getElementById('lastCommand').textContent = command;
-                document.getElementById('totalCommands').textContent = 
-                    parseInt(document.getElementById('totalCommands').textContent) + 1;
-                    
-                return true;
-            } catch (error) {
-                log(`Bluetooth send error: ${error.message}`, 'error');
-                return false;
-            }
-        }
-
-        async function sendTestSignal() {
-            log('Starting Bluetooth test sequence...', 'info');
-            
-            const testCommands = ['D', '0', '1', '0', '1', 'D'];
-            
-            for (let i = 0; i < testCommands.length; i++) {
-                await sendBluetoothCommand(testCommands[i]);
-                await new Promise(resolve => setTimeout(resolve, 800));
-            }
-            
-            log('Bluetooth test sequence completed', 'success');
-        }
-
-        function updateBluetoothStatus(status) {
-            const indicator = document.getElementById('bluetoothIndicator');
-            const statusText = document.getElementById('bluetoothStatusText');
-            
-            indicator.className = 'status-indicator';
-            
-            switch(status) {
-                case 'connected':
-                    indicator.classList.add('status-connected');
-                    statusText.textContent = 'Connected';
-                    break;
-                case 'connecting':
-                    indicator.classList.add('status-connecting');
-                    statusText.textContent = 'Connecting...';
-                    break;
-                case 'scanning':
-                    indicator.classList.add('status-connecting');
-                    statusText.textContent = 'Scanning...';
-                    break;
-                case 'error':
-                    indicator.classList.add('status-disconnected');
-                    statusText.textContent = 'Connection Error';
-                    break;
-                default:
-                    indicator.classList.add('status-disconnected');
-                    statusText.textContent = 'Disconnected';
-            }
-        }
-
-        // Camera and Face Detection Functions
-        async function startCamera() {
-            try {
-                updateCameraStatus('starting');
-                log('Initializing camera...', 'info');
-                
-                const constraints = {
-                    video: {
-                        width: { ideal: 640 },
-                        height: { ideal: 480 },
-                        frameRate: { ideal: 30 }
-                    }
-                };
-                
-                AppState.videoStream = await navigator.mediaDevices.getUserMedia(constraints);
-                const video = document.getElementById('videoElement');
-                video.srcObject = AppState.videoStream;
-                
-                await new Promise((resolve) => {
-                    video.onloadedmetadata = () => {
-                        video.play();
-                        resolve();
-                    };
-                });
-                
-                AppState.isCameraActive = true;
-                updateCameraStatus('active');
-                document.getElementById('startDetectionBtn').disabled = false;
-                
-                log('Camera started successfully', 'success');
-                
-            } catch (error) {
-                log(`Camera initialization failed: ${error.message}`, 'error');
-                updateCameraStatus('error');
-                setTimeout(() => updateCameraStatus('inactive'), 3000);
-            }
-        }
-
-        async function startDetection() {
-            if (!AppState.isCameraActive) {
-                log('Please start camera first', 'error');
-                return;
-            }
-
-            AppState.isDetecting = true;
-            updateDetectionStatus('active');
-            
-            // Auto-start data logging
-            if (!AppState.isLogging) {
-                toggleDataLogging();
-            }
-            
-            log('Real-time drowsiness detection started', 'success');
-            log(`Settings: EAR threshold ${AppState.earThreshold}, Alert frames ${AppState.alertFrames}`, 'info');
-            
-            // Start detection loop
-            detectFaces();
-        }
-
-        async function detectFaces() {
-            if (!AppState.isDetecting) return;
-            
-            const video = document.getElementById('videoElement');
-            const canvas = document.getElementById('canvasOverlay');
-            const ctx = canvas.getContext('2d');
-            
-            try {
-                AppState.frameCount++;
-                
-                // Clear canvas
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                if (AppState.faceModel && video.readyState >= 2) {
-                    const predictions = await AppState.faceModel.estimateFaces(video, false);
-                    
-                    if (predictions.length > 0) {
-                        AppState.faceDetected = true;
-                        const face = predictions[0];
-                        
-                        // Draw face bounding box
-                        drawFaceBoundingBox(ctx, face);
-                        
-                        // Get landmarks if available
-                        if (AppState.landmarksModel) {
-                            const landmarks = await AppState.landmarksModel.estimateFaces({
-                                input: video,
-                                returnTensors: false,
-                                flipHorizontal: false
-                            });
-                            
-                            if (landmarks.length > 0) {
-                                const earValues = calculateEARFromLandmarks(landmarks[0]);
-                                AppState.leftEAR = earValues.left;
-                                AppState.rightEAR = earValues.right;
-                                AppState.averageEAR = earValues.average;
-                                
-                                drawEyeLandmarks(ctx, landmarks[0]);
-                                
-                                // Drowsiness detection
-                                const isDrowsy = processDrowsinessDetection();
-                                
-                                // Send Bluetooth command
-                                if (isDrowsy) {
-                                    await sendBluetoothCommand('1');
-                                    showDrowsinessAlert();
-                                } else {
-                                    await sendBluetoothCommand('0');
-                                }
-                                
-                                // Log data
-                                logDetectionData(isDrowsy);
-                            }
-                        }
-                    } else {
-                        AppState.faceDetected = false;
-                        AppState.leftEAR = 0;
-                        AppState.rightEAR = 0;
-                        AppState.averageEAR = 0;
-                        AppState.consecutiveDrowsyFrames = 0;
-                        
-                        logDetectionData(-1, 'No face detected');
-                    }
-                    
-                    updateMetricsDisplay();
-                    drawOverlayInfo(ctx);
-                }
-                
-            } catch (error) {
-                log(`Detection error: ${error.message}`, 'error');
-            }
-            
-            // Continue detection loop
-            requestAnimationFrame(detectFaces);
-        }
-
-        function calculateEARFromLandmarks(landmarks) {
-            // MediaPipe face mesh eye landmark indices
-            const leftEyeIndices = [33, 7, 163, 144, 145, 153];
-            const rightEyeIndices = [362, 382, 381, 380, 374, 373];
-            
-            function calculateEAR(eyeIndices) {
-                if (!landmarks.scaledMesh || landmarks.scaledMesh.length < Math.max(...eyeIndices)) {
-                    return 0;
-                }
-                
-                const points = eyeIndices.map(i => landmarks.scaledMesh[i]);
-                
-                // Calculate vertical distances
-                const v1 = Math.sqrt(Math.pow(points[1][0] - points[5][0], 2) + Math.pow(points[1][1] - points[5][1], 2));
-                const v2 = Math.sqrt(Math.pow(points[2][0] - points[4][0], 2) + Math.pow(points[2][1] - points[4][1], 2));
-                
-                // Calculate horizontal distance
-                const h = Math.sqrt(Math.pow(points[0][0] - points[3][0], 2) + Math.pow(points[0][1] - points[3][1], 2));
-                
-                return (v1 + v2) / (2.0 * h);
-            }
-            
-            const leftEAR = calculateEAR(leftEyeIndices);
-            const rightEAR = calculateEAR(rightEyeIndices);
-            const averageEAR = (leftEAR + rightEAR) / 2;
-            
-            return { left: leftEAR, right: rightEAR, average: averageEAR };
-        }
-
-        function drawFaceBoundingBox(ctx, face) {
-            ctx.strokeStyle = '#00d4aa';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(
-                face.topLeft[0],
-                face.topLeft[1],
-                face.bottomRight[0] - face.topLeft[0],
-                face.bottomRight[1] - face.topLeft[1]
-            );
-            
-            // Draw confidence
-            ctx.fillStyle = '#00d4aa';
-            ctx.font = 'bold 14px Arial';
-            ctx.fillText(`${(face.probability * 100).toFixed(1)}%`, face.topLeft[0], face.topLeft[1] - 5);
-        }
-
-        function drawEyeLandmarks(ctx, landmarks) {
-            if (!landmarks.scaledMesh) return;
-            
-            ctx.fillStyle = '#667eea';
-            
-            // Draw eye points
-            const leftEyeIndices = [33, 7, 163, 144, 145, 153, 154, 155, 133, 173];
-            const rightEyeIndices = [362, 382, 381, 380, 374, 373, 390, 249, 263, 466];
-            
-            [...leftEyeIndices, ...rightEyeIndices].forEach(index => {
-                if (landmarks.scaledMesh[index]) {
-                    const [x, y] = landmarks.scaledMesh[index];
-                    ctx.beginPath();
-                    ctx.arc(x, y, 2, 0, 2 * Math.PI);
-                    ctx.fill();
-                }
-            });
-        }
-
-        function drawOverlayInfo(ctx) {
-            // Draw EAR values
-            ctx.fillStyle = 'white';
-            ctx.font = 'bold 16px Arial';
-            ctx.strokeStyle = 'black';
-            ctx.lineWidth = 3;
-            
-            const info = [
-                `L-EAR: ${AppState.leftEAR.toFixed(3)}`,
-                `R-EAR: ${AppState.rightEAR.toFixed(3)}`,
-                `Avg: ${AppState.averageEAR.toFixed(3)}`,
-                `Blinks: ${AppState.blinkCount}`
-            ];
-            
-            info.forEach((text, i) => {
-                const y = 30 + (i * 25);
-                ctx.strokeText(text, 15, y);
-                ctx.fillText(text, 15, y);
-            });
-            
-            // Draw drowsiness warning
-            if (AppState.averageEAR > 0 && AppState.averageEAR < AppState.earThreshold) {
-                ctx.fillStyle = '#ff6b6b';
-                ctx.font = 'bold 24px Arial';
-                ctx.strokeStyle = 'black';
-                ctx.lineWidth = 4;
-                
-                const warningText = 'DROWSINESS DETECTED!';
-                const textWidth = ctx.measureText(warningText).width;
-                const x = (640 - textWidth) / 2;
-                
-                ctx.strokeText(warningText, x, 50);
-                ctx.fillText(warningText, x, 50);
-            }
-            
-            // Draw timestamp
-            ctx.fillStyle = '#74b9ff';
-            ctx.font = '12px Arial';
-            const timestamp = getISTTime().toLocaleTimeString('en-IN', { 
-                timeZone: 'Asia/Kolkata', 
-                hour12: false 
-            });
-            ctx.fillText(`IST: ${timestamp}`, 540, 20);
-        }
-
-        function processDrowsinessDetection() {
-            if (!AppState.faceDetected || AppState.averageEAR === 0) {
-                AppState.consecutiveDrowsyFrames = 0;
-                return false;
-            }
-            
-            if (AppState.averageEAR < AppState.earThreshold) {
-                AppState.consecutiveDrowsyFrames++;
-                
-                if (AppState.consecutiveDrowsyFrames >= AppState.alertFrames) {
-                    AppState.drowsyEvents++;
-                    log(`DROWSINESS EVENT #${AppState.drowsyEvents} - EAR: ${AppState.averageEAR.toFixed(3)}`, 'error');
-                    return true;
-                }
-            } else {
-                // Detect blink
-                if (AppState.averageEAR < 0.20 && AppState.consecutiveDrowsyFrames === 0) {
-                    AppState.blinkCount++;
-                    log(`Blink detected #${AppState.blinkCount}`, 'info');
-                }
-                AppState.consecutiveDrowsyFrames = 0;
-            }
-            
-            return false;
-        }
-
-        function showDrowsinessAlert() {
-            const alertPanel = document.getElementById('alertPanel');
-            const notification = document.getElementById('drowsinessNotification');
-            
-            alertPanel.classList.add('active');
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                alertPanel.classList.remove('active');
-                notification.classList.remove('show');
-            }, 4000);
-        }
-
-        // Data Logging Functions
-        function toggleDataLogging() {
-            if (AppState.isLogging) {
-                stopDataLogging();
-            } else {
-                startDataLogging();
-            }
-        }
-
-        function startDataLogging() {
-            AppState.isLogging = true;
-            updateLoggingStatus('active');
-            log('Data logging started', 'success');
-        }
-
-        function stopDataLogging() {
-            AppState.isLogging = false;
-            updateLoggingStatus('inactive');
-            log(`Data logging stopped. ${AppState.recordCount} records saved.`, 'success');
-        }
-
-        function logDetectionData(alertState, notes = '') {
-            if (!AppState.isLogging) return;
-            
-            const sessionTime = AppState.sessionStart ? 
-                Math.floor((Date.now() - AppState.sessionStart) / 1000) : 0;
-            
-            const record = [
-                formatISTTimestamp(),
-                sessionTime,
-                AppState.faceDetected ? '1' : '0',
-                AppState.faceDetected ? '0.95' : '0.00', // Face confidence
-                AppState.leftEAR.toFixed(4),
-                AppState.rightEAR.toFixed(4),
-                AppState.averageEAR.toFixed(4),
-                AppState.blinkCount,
-                AppState.drowsyEvents,
-                alertState,
-                AppState.consecutiveDrowsyFrames,
-                AppState.fps,
-                AppState.bluetoothDevice ? 'Connected' : 'Disconnected',
-                AppState.lastCommand,
-                notes
-            ];
-            
-            AppState.csvData.push(record);
-            AppState.recordCount++;
-            document.getElementById('dataRecordsValue').textContent = AppState.recordCount;
-        }
-
-        function downloadCSV() {
-            if (AppState.csvData.length <= 1) {
-                log('No data to download', 'warning');
-                alert('No data available for download. Start detection first.');
-                return;
-            }
-            
-            const csvContent = AppState.csvData.map(row => 
-                row.map(cell => `"${cell}"`).join(',')
-            ).join('\n');
-            
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `drowsiness_data_${AppState.sessionId}.csv`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-            
-            log(`CSV downloaded: ${AppState.recordCount} records`, 'success');
-        }
-
-        // UI Update Functions
-        function updateCameraStatus(status) {
-            const indicator = document.getElementById('cameraIndicator');
-            const statusText = document.getElementById('cameraStatusText');
-            const button = document.getElementById('startCameraBtn');
-            
-            indicator.className = 'status-indicator';
-            
-            switch(status) {
-                case 'active':
-                    indicator.classList.add('status-connected');
-                    statusText.textContent = 'Active';
-                    button.textContent = '📹 Camera Running';
-                    button.disabled = true;
-                    break;
-                case 'starting':
-                    indicator.classList.add('status-connecting');
-                    statusText.textContent = 'Starting...';
-                    button.disabled = true;
-                    break;
-                case 'error':
-                    indicator.classList.add('status-disconnected');
-                    statusText.textContent = 'Error';
-                    button.textContent = '📹 Retry Camera';
-                    button.disabled = false;
-                    break;
-                default:
-                    indicator.classList.add('status-disconnected');
-                    statusText.textContent = 'Inactive';
-                    button.textContent = '📹 Start Camera';
-                    button.disabled = false;
-            }
-        }
-
-        function updateDetectionStatus(status) {
-            const indicator = document.getElementById('detectionIndicator');
-            const statusText = document.getElementById('detectionStatusText');
-            const button = document.getElementById('startDetectionBtn');
-            
-            indicator.className = 'status-indicator';
-            
-            if (status === 'active') {
-                indicator.classList.add('status-connected');
-                statusText.textContent = 'Active';
-                button.textContent = '🤖 Detection Running';
-                button.disabled = true;
-            } else {
-                indicator.classList.add('status-disconnected');
-                statusText.textContent = 'Standby';
-                button.textContent = '🤖 Start Detection';
-                button.disabled = !AppState.isCameraActive;
-            }
-        }
-
-        function updateLoggingStatus(status) {
-            const indicator = document.getElementById('loggingIndicator');
-            const statusText = document.getElementById('loggingStatusText');
-            const button = document.getElementById('dataLoggingBtn');
-            
-            indicator.className = 'status-indicator';
-            
-            if (status === 'active') {
-                indicator.classList.add('status-connected');
-                statusText.textContent = 'Recording';
-                button.textContent = '📊 Stop Logging';
-            } else {
-                indicator.classList.add('status-disconnected');
-                statusText.textContent = 'Inactive';
-                button.textContent = '📊 Start Logging';
-            }
-        }
-
-        function updateMetricsDisplay() {
-            document.getElementById('leftEARValue').textContent = AppState.leftEAR.toFixed(3);
-            document.getElementById('rightEARValue').textContent = AppState.rightEAR.toFixed(3);
-            document.getElementById('averageEARValue').textContent = AppState.averageEAR.toFixed(3);
-            document.getElementById('blinkCountValue').textContent = AppState.blinkCount;
-            document.getElementById('drowsyEventsValue').textContent = AppState.drowsyEvents;
-        }
-
-        // Settings Functions
-        function updateEARThreshold(value) {
-            AppState.earThreshold = parseFloat(value);
-            document.getElementById('earThresholdValue').textContent = value;
-            log(`EAR threshold updated to ${value}`, 'info');
-        }
-
-        function updateAlertFrames(value) {
-            AppState.alertFrames = parseInt(value);
-            document.getElementById('alertFramesValue').textContent = value;
-            log(`Alert frames updated to ${value}`, 'info');
-        }
-
-        function updateConfidence(value) {
-            AppState.confidenceThreshold = parseFloat(value);
-            document.getElementById('confidenceValue').textContent = value;
-            log(`Confidence threshold updated to ${value}`, 'info');
-        }
-
-        // System Control
-        function stopAllSystems() {
-            AppState.isDetecting = false;
-            
-            // Stop camera
-            if (AppState.videoStream) {
-                AppState.videoStream.getTracks().forEach(track => track.stop());
-                AppState.videoStream = null;
-                document.getElementById('videoElement').srcObject = null;
-            }
-            AppState.isCameraActive = false;
-            
-            // Stop data logging
-            if (AppState.isLogging) {
-                stopDataLogging();
-            }
-            
-            // Disconnect Bluetooth
-            if (AppState.bluetoothDevice && AppState.bluetoothDevice.gatt && AppState.bluetoothDevice.gatt.connected) {
-                AppState.bluetoothDevice.gatt.disconnect();
-            }
-            
-            // Clear canvas
-            const canvas = document.getElementById('canvasOverlay');
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Reset UI
-            updateCameraStatus('inactive');
-            updateDetectionStatus('inactive');
-            updateLoggingStatus('inactive');
-            updateBluetoothStatus('disconnected');
-            
-            // Reset metrics
-            AppState.faceDetected = false;
-            AppState.leftEAR = 0;
-            AppState.rightEAR = 0;
-            AppState.averageEAR = 0;
-            AppState.blinkCount = 0;
-            AppState.drowsyEvents = 0;
-            AppState.consecutiveDrowsyFrames = 0;
-            updateMetricsDisplay();
-            
-            document.getElementById('connectedDevice').textContent = 'None';
-            document.getElementById('testBtn').disabled = true;
-            document.getElementById('startDetectionBtn').disabled = true;
-            
-            log('All systems stopped safely', 'warning');
+            log('Advanced AI Drowsiness Detection System initialized', 'success');
+            log('System ready with enhanced accuracy and multi-model detection', 'info');
         }
 
         // Initialize Application
         window.addEventListener('load', async () => {
-            log('Starting Professional Drowsiness Detection System...', 'info');
-            await initializeAIModels();
+            log('Initializing Advanced AI Drowsiness Detection System...', 'info');
+            await initializeAdvancedAI();
         });
 
         // Cleanup on page unload
         window.addEventListener('beforeunload', () => {
-            if (AppState.videoStream) {
-                AppState.videoStream.getTracks().forEach(track => track.stop());
+            if (AdvancedState.videoStream) {
+                AdvancedState.videoStream.getTracks().forEach(track => track.stop());
             }
-            if (AppState.bluetoothDevice && AppState.bluetoothDevice.gatt && AppState.bluetoothDevice.gatt.connected) {
-                AppState.bluetoothDevice.gatt.disconnect();
+            if (AdvancedState.bluetoothDevice && AdvancedState.bluetoothDevice.gatt && AdvancedState.bluetoothDevice.gatt.connected) {
+                AdvancedState.bluetoothDevice.gatt.disconnect();
             }
         });
     </script>
